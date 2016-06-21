@@ -53,42 +53,168 @@ s.getInfo()
 
 
 
-//TP
-class Personnage {
-    
-    var pouvoir: String
-    
-    init (pouvoir: String) { self.pouvoir = pouvoir }
-    
-    func manger() -> String { return "miam miam \(pouvoir)" }
-    
+//
+//class Person {
+//    var name: String
+//    init (name: String) { self.name = name }
+//    func getName() -> String { return "His/her name is: \(name) ." }
+//    func setName(name: String) -> String {
+//        self.name = name
+//        return "His/her name is: \(name) ."
+//    }
+//}
+//let n = Person(name:"Pat")
+
+
+
+//ACCESSEURS
+
+class EquilateralTriangle: NamedShape {
+    var sideLength: Double = 0.0
+    init (length: Double, name: String) {
+        self.sideLength = length
+        super.init(name: name)
+        sidesCount = 3
+    }
+    var perimeter: Double {
+        get{
+            return 3.0 * sideLength
+        }
+        set {
+            sideLength = newValue / 3.0
+        }
+    }
+    override func getInfo() -> String {
+        return "Length= \(sideLength)"
+    }
 }
+var triangle = EquilateralTriangle (length: 3.1, name: "a triangle")
+print(triangle.perimeter)
+triangle.perimeter = 9.9
+print(triangle.sideLength)
 
 
 
-class Humain : Personnage {
-    
-    var sexe: String
-    
-    init(sexe: String, pouvoir: String) {
-        
-        self.sexe = sexe
-        
-        super.init(pouvoir: pouvoir)
-        
+class Age {
+    var age: Int = 0
+    init (age: Int) { self.age = age }
+    var perimeterAge: Int {
+        get{
+            return age
+        }
+        set {
+            age = newValue
+        }
+    }
+    func getAge() -> String {
+        return "Age = \(age)"
+    }
+}
+var a = Age (age: 15)
+print(a.perimeterAge)
+
+
+//PARAMETRES NOMMES
+class Counter {
+    var count: Int = 0
+    func incrementBy (amount: Int, numberOfTimes times: Int) {
+        count += amount * times
     }
     
-    func Ecrire() -> String { return "Son sexe est \(sexe). Son pouvoir est \(pouvoir)" }
-    
 }
+var counter = Counter()
+counter.incrementBy(2, numberOfTimes: 7)
 
 
 
-let p = Humain(sexe: "Féminin", pouvoir: "Magie")
+//ENUM & RAWVALUE
+enum Rank: Int {
+    case Ace = 1
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack, Queen, King
+    func getInfo() -> String {
+        switch self {
+            case .Ace: return "ace"
+            case .Jack: return "jack"
+            case .Queen: return "queen"
+            case .King: return "king"
+            default: return
+            String(self.rawValue)
+        }
+    }
+}
+let ace = Rank.Ace
+let aceRawValue = ace.rawValue
 
-p.Ecrire()
 
-p.manger()
+
+//STRUCTURE
+enum Suit: String {
+    case Hearts
+    case Spades
+    case Clubs
+    case Diamonds
+    func getInfo() ->String {
+        switch self {
+            case .Hearts: return "hearts"
+            case .Spades: return "spades"
+            case .Clubs: return "clubs"
+            default: return "diamonds"
+        }
+    }
+}
+//struct Card {
+//    var rank: Rank
+//    var suit: Suit
+//    func simpleDescription() -> String {
+//        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+//    }
+//}
+//let threeOfSpades = Card(rank: .Three, suit: .Spades)
+//let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+
+//PROTOCOL & EXTENSION
+
+//protocol Personnage {
+//    func deplacer()
+//}
+//class Humain: Personnage {
+//    func deplacer() ->String { return "Se déplace en marchant" }
+//}
+//class Limace: Personnage {
+//    func deplacer() ->String { return "Se déplace en rampant" }
+//}
+
+
+
+
+//ACCESS CONTROL
+
+class Book {
+    var author: String = "Author"
+    var title: String = "Title"
+    private func getDescription() ->String {
+        return "\(author) - \(title)"
+    }
+}
+var b = Book()
+b.author = "George RR Martin"
+b.title = "Game of Thrones"
+print(b.getDescription())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
